@@ -201,11 +201,11 @@ span{
     position: relative;
 }
 
-.typing-text span::before{
+/* .typing-text span::before{
     content: "Web Developer";
     color: #b74b4b;
     animation: words 20s infinite;
-}
+} */
 
 .typing-text span::after{
     content: "";
@@ -224,7 +224,7 @@ span{
     }
 }
 
-@keyframes words{
+/* @keyframes words{
     0%, 20%{
         content: "Web Developer";
     }
@@ -235,7 +235,7 @@ span{
         content: "Web Designer";
     }
     
-}
+} */
 
 @media (max-width: 1000px){
     .home{
