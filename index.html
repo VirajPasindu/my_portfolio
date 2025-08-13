@@ -429,98 +429,206 @@
             padding: 5rem 5%;
             background: linear-gradient(135deg, #000000 0%, #2c2a2a 100%);
             color: white;
+            position: relative;
+            overflow: hidden;
         }
 
         .contact-container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
             text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,215,0,0.1) 0%, transparent 70%);
+            animation: pulse 15s infinite;
+            z-index: -1;
         }
 
         .contact-form {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 3rem;
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.08);
+            padding: 3.5rem;
+            border-radius: 25px;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.4);
             margin-top: 3rem;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-form::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.2), transparent);
+            transition: left 1.2s;
+        }
+
+        .contact-form:hover::before {
+            left: 100%;
         }
 
         .form-group {
-            margin-bottom: 2rem;
-            text-align: left;
+            margin-bottom: 2.5rem;
+            position: relative;
         }
 
         .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: #ffffff;
-            font-weight: 600;
-            font-size: 1.1rem;
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
         }
 
         .form-group input,
         .form-group textarea {
             width: 100%;
-            padding: 1rem;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            background: rgba(255, 255, 255, 0.1);
-            color: rgb(255, 255, 255);
+            padding: 1.2rem;
+            border: none;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
             font-size: 1rem;
             transition: all 0.3s ease;
-            backdrop-filter: blur(5px);
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
         }
 
-        .form-group input::placeholder,
-        .form-group textarea::placeholder {
-            color: rgba(255, 255, 255, 0.7);
+        .form-group input:focus + label,
+        .form-group input:not(:placeholder-shown) + label,
+        .form-group textarea:focus + label,
+        .form-group textarea:not(:placeholder-shown) + label {
+            top: -0.8rem;
+            left: 0.8rem;
+            font-size: 0.8rem;
+            color: #FFD700;
+            background: #2c2a2a;
+            padding: 0 0.5rem;
+            border-radius: 5px;
         }
 
         .form-group input:focus,
         .form-group textarea:focus {
             outline: none;
-            border-color: #fcfcfc;
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.1);
             box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+            border: 2px solid transparent;
+            border-image: linear-gradient(45deg, #FFD700, #FFA500) 1;
         }
 
         .form-group textarea {
             resize: vertical;
-            min-height: 150px;
+            min-height: 180px;
         }
 
         .form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 1rem;
+            gap: 1.5rem;
         }
 
         .submit-btn {
             background: linear-gradient(45deg, #FFD700, #FFA500);
             color: #333;
-            padding: 15px 40px;
+            padding: 15px 50px;
             border: none;
             border-radius: 50px;
             font-weight: bold;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.4);
+            box-shadow: 0 5px 25px rgba(255, 215, 0, 0.5);
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 1rem;
+            letter-spacing: 1.5px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .submit-btn:hover::after {
+            left: 100%;
         }
 
         .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(255, 215, 0, 0.6);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 35px rgba(255, 215, 0, 0.7);
         }
 
         .submit-btn:disabled {
             opacity: 0.7;
             cursor: not-allowed;
             transform: none;
+        }
+
+        .submit-btn.loading::after {
+            animation: loading 1s infinite;
+        }
+
+        .form-status {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: 12px;
+            text-align: center;
+            font-weight: 600;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .form-status.success {
+            background: rgba(34, 197, 94, 0.15);
+            border: 2px solid #22c55e;
+            color: #22c55e;
+        }
+
+        .form-status.error {
+            background: rgba(239, 68, 68, 0.15);
+            border: 2px solid #ef4444;
+            color: #ef4444;
+        }
+
+        .form-group.error input,
+        .form-group.error textarea {
+            border: 2px solid #ef4444;
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        .form-group.error label {
+            color: #ef4444;
+        }
+
+        .form-group.valid input,
+        .form-group.valid textarea {
+            border: 2px solid #22c55e;
+            background: rgba(34, 197, 94, 0.1);
+        }
+
+        .form-group.valid label {
+            color: #22c55e;
         }
 
         .contact-info {
@@ -562,27 +670,6 @@
             font-size: 1rem;
         }
 
-        .form-status {
-            margin-top: 1rem;
-            padding: 1rem;
-            border-radius: 10px;
-            text-align: center;
-            font-weight: 600;
-            display: none;
-        }
-
-        .form-status.success {
-            background: rgba(34, 197, 94, 0.2);
-            border: 2px solid #22c55e;
-            color: #22c55e;
-        }
-
-        .form-status.error {
-            background: rgba(239, 68, 68, 0.2);
-            border: 2px solid #ef4444;
-            color: #ef4444;
-        }
-
         /* Animations */
         @keyframes float {
             0%, 100% {
@@ -590,6 +677,41 @@
             }
             50% {
                 transform: translateY(-20px);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 0.3;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+        }
+
+        @keyframes loading {
+            0% {
+                left: -100%;
+            }
+            100% {
+                left: 100%;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
         }
 
@@ -1031,34 +1153,34 @@
             <form class="contact-form" id="contactForm">
                 <div class="form-row">
                     <div class="form-group">
+                        <input type="text" id="firstName" name="firstName" placeholder=" " required>
                         <label for="firstName">First Name *</label>
-                        <input type="text" id="firstName" name="firstName" placeholder="Your first name" required>
                     </div>
                     <div class="form-group">
+                        <input type="text" id="lastName" name="lastName" placeholder=" " required>
                         <label for="lastName">Last Name *</label>
-                        <input type="text" id="lastName" name="lastName" placeholder="Your last name" required>
                     </div>
                 </div>
                 
                 <div class="form-row">
                     <div class="form-group">
+                        <input type="email" id="email" name="email" placeholder=" " required>
                         <label for="email">Email Address *</label>
-                        <input type="email" id="email" name="email" placeholder="your.email@example.com" required>
                     </div>
                     <div class="form-group">
+                        <input type="tel" id="phone" name="phone" placeholder=" ">
                         <label for="phone">Phone Number</label>
-                        <input type="tel" id="phone" name="phone" placeholder="+94 70 123 4567">
                     </div>
                 </div>
 
                 <div class="form-group">
+                    <input type="text" id="subject" name="subject" placeholder=" " required>
                     <label for="subject">Subject *</label>
-                    <input type="text" id="subject" name="subject" placeholder="What's this about?" required>
                 </div>
 
                 <div class="form-group">
+                    <textarea id="message" name="message" placeholder=" " required></textarea>
                     <label for="message">Message *</label>
-                    <textarea id="message" name="message" placeholder="Tell me about your project or how I can help you..." required></textarea>
                 </div>
 
                 <button type="submit" class="submit-btn" id="submitBtn">Send Message</button>
@@ -1141,7 +1263,7 @@
             }
         });
 
-        // Contact form handling
+        // Contact form handling with enhanced validation
         document.getElementById('contactForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
@@ -1149,8 +1271,48 @@
             const formStatus = document.getElementById('formStatus');
             const form = e.target;
             
+            // Reset validation states
+            form.querySelectorAll('.form-group').forEach(group => {
+                group.classList.remove('error', 'valid');
+            });
+
+            // Client-side validation
+            let isValid = true;
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const phoneRegex = /^\+?\d{1,4}?\s?\d{3}\s?\d{3}\s?\d{4}$/;
+
+            const fields = [
+                { id: 'firstName', validate: val => val.trim().length > 0 },
+                { id: 'lastName', validate: val => val.trim().length > 0 },
+                { id: 'email', validate: val => emailRegex.test(val) },
+                { id: 'subject', validate: val => val.trim().length > 0 },
+                { id: 'message', validate: val => val.trim().length > 0 },
+                { id: 'phone', validate: val => !val || phoneRegex.test(val), optional: true }
+            ];
+
+            fields.forEach(field => {
+                const input = form.querySelector(`#${field.id}`);
+                const group = input.closest('.form-group');
+                const value = input.value.trim();
+
+                if (!field.optional && !field.validate(value)) {
+                    group.classList.add('error');
+                    isValid = false;
+                } else if (value) {
+                    group.classList.add('valid');
+                }
+            });
+
+            if (!isValid) {
+                formStatus.className = 'form-status error';
+                formStatus.textContent = 'Please fill out all required fields correctly';
+                formStatus.style.display = 'block';
+                return;
+            }
+
             // Disable submit button and show loading state
             submitBtn.disabled = true;
+            submitBtn.classList.add('loading');
             submitBtn.textContent = 'Sending...';
             formStatus.style.display = 'none';
             
@@ -1191,6 +1353,9 @@ ${data.message}
                     formStatus.textContent = 'Message sent successfully! I\'ll get back to you soon.';
                     formStatus.style.display = 'block';
                     form.reset();
+                    form.querySelectorAll('.form-group').forEach(group => {
+                        group.classList.remove('valid');
+                    });
                 } else {
                     throw new Error('Failed to send message');
                 }
@@ -1216,6 +1381,7 @@ ${data.message}
             
             // Re-enable submit button
             submitBtn.disabled = false;
+            submitBtn.classList.remove('loading');
             submitBtn.textContent = 'Send Message';
         });
     </script>
